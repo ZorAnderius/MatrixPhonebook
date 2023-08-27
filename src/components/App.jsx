@@ -1,69 +1,59 @@
-import React, { useEffect } from 'react';
-import { Section } from './Section/Section';
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
-
-import appCSS from './App.module.css';
-
-import { Notification } from './Notification/Notification';
+import { Route, Routes } from 'react-router-dom';
+import { SharedLayout } from './SharedLayout/SharedLayout';
+import { Home } from '../pages/Home/home';
+import { Contacts } from '../pages/Contacts/contacts';
+import { Login } from '../pages/Login/login';
+import { SignUp } from '../pages/SignUp/signUp';
+import { UserProfile } from '../pages/UserProfile/userProfile';
+import { Error } from '../pages/ErrorPage/error';
+import { PrivateGuard } from './Guards/PrivateGuards';
+import { PublicGuards } from './Guards/PublicGuards';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterContacts, selectContacts } from 'redux/selectors';
-import { addContactThunk, fetchContactsThunk } from 'redux/thunks';
-import { Loader } from './Loader/Loader';
-import { Error } from './Error/Error';
-import { ScrollUp } from './ScrollUp/ScrollUp';
+import { selectIsRefresh } from 'redux/auth/selectors';
+import { useEffect } from 'react';
+import { refreshThunk } from 'redux/auth/thunks';
 
 export const App = () => {
-  const { isLoading, error } = useSelector(selectContacts);
-  const filterList = useSelector(filterContacts);
+  const isRefresh = useSelector(selectIsRefresh);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContactsThunk());
+    dispatch(refreshThunk());
   }, [dispatch]);
 
-  const addContact = body => {
-    const isInclude = filterList.find(
-      ({ name }) => name.toLowerCase() === body.name.toLowerCase()
-    );
-
-    if (isInclude) {
-      alert(
-        `Sorry, but the contact ${body.name} is already in your phone book `
-      );
-    } else {
-      dispatch(addContactThunk(body));
-    }
-  };
-
   return (
-    <div className={appCSS.main_container}>
-      <Section
-        title={'Phonebook'}
-        styles={{ title: 'phonebook-title', container: 'first-container' }}
-      >
-        <ContactForm addContact={addContact} />
-      </Section>
+    !isRefresh && (
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateGuard redirectTo="/login">
+                <Contacts />
+              </PrivateGuard>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicGuards redirectTo="/contacts">
+                <Login />
+              </PublicGuards>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicGuards redirectTo="/login">
+                <SignUp />
+              </PublicGuards>
+            }
+          />
 
-      {error ? (
-        <Error error={error} />
-      ) : (
-        <Section
-          title={'Contacts'}
-          styles={{ title: 'contact-title', container: 'second-container' }}
-        >
-          <Filter />
-          {isLoading ? (
-            <Loader />
-          ) : filterList?.length ? (
-            <ContactList contacts={filterList} />
-          ) : (
-            <Notification message="Phonebook is empty" />
-          )}
-        </Section>
-      )}
-      <ScrollUp />
-    </div>
+          <Route path="*" element={<Error />} />
+        </Route>
+      </Routes>
+    )
   );
 };

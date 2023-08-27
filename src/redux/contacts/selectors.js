@@ -6,15 +6,16 @@ export const selectFilterQuery = state => state.filter;
 
 // export const filterContacts = state => {
 //   const normalaizedFilter = state.filter.toLowerCase();
-//   return state.contacts.items?.filter(contact =>
+//   return state.contacts.contacts?.filter(contact =>
 //     contact.name.toLowerCase().includes(normalaizedFilter)
 //   );
 // };
 
 export const filterContacts = createSelector(
   [selectContacts, selectFilterQuery],
-  (contacts, filter) =>
-    contacts.items?.filter(contact =>
+  (contacts, filter) => {
+    return contacts.contacts?.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
-    )
+    );
+  }
 );

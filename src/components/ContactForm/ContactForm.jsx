@@ -23,6 +23,8 @@ export const ContactForm = ({ addContact }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log('name', name)
+    console.log('number', number)
     addContact({ id: nanoid(), name, number });
     reset();
   };

@@ -1,5 +1,20 @@
 @import-normalize; /* bring in normalize.css styles */
 
+@font-face {
+  font-family: Agatha;
+  src: url('./support/fonts/Agatha.ttf');
+}
+
+@font-face {
+  font-family: Anydore;
+  src: url('./support/fonts/Anydore.otf');
+}
+
+@font-face {
+  font-family: Matrix;
+  src: url('./support/fonts/matrix.ttf');
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

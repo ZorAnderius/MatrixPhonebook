@@ -10,8 +10,6 @@ import {
   handleFulfilledAddContacts,
   handleFulfilledContacts,
   handleFulfilledDeleteContacts,
-  handlePending,
-  handleRejected,
 } from './handler';
 
 export const contactsSlice = createSlice({
@@ -23,9 +21,10 @@ export const contactsSlice = createSlice({
       .addCase(fetchContactsThunk.fulfilled, handleFulfilledContacts)
       .addCase(addContactThunk.fulfilled, handleFulfilledAddContacts)
       .addCase(deleteContactThunk.fulfilled, handleFulfilledDeleteContacts)
-      .addMatcher(action => action.type.endsWith('/fulfilled'), handleFulfilled)
-      .addMatcher(action => action.type.endsWith('/pending'), handlePending)
-      .addMatcher(action => action.type.endsWith('/rejected'), handleRejected);
+      .addMatcher(
+        action => action.type.endsWith('/fulfilled'),
+        handleFulfilled
+      );
   },
 });
 

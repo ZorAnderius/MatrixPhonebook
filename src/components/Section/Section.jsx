@@ -1,11 +1,11 @@
-import { Header } from 'components/Header/Header';
+import { Title } from 'components/Title/Title';
 import propTypes from 'prop-types';
 import sectionCSS from './Section.module.css';
 
 export const Section = ({ title, styles, children }) => {
   return (
     <div className={sectionCSS[styles.container]}>
-      <Header title={title} title_style={styles.title} />
+      <Title title={title} title_style={styles.title} />
       {children}
     </div>
   );

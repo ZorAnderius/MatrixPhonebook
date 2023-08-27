@@ -1,7 +1,7 @@
 import { Notification } from 'components/Notification/Notification';
 import contactListCSS from './ContactList.module.css';
 import { useDispatch } from 'react-redux';
-import { deleteContactThunk } from 'redux/thunks';
+import { deleteContactThunk } from '../../redux/contacts/thunks';
 import propTypes from 'prop-types';
 
 export const ContactList = ({ contacts }) => {
