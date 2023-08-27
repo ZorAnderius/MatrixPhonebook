@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { logOut, refresh, signUp } from '../../api/authAPI';
 import { login } from 'api/authAPI';
-import _ from 'lodash';
-import { setToken } from 'api/api';
 
 export const signUpThunk = createAsyncThunk(
   'auth/signup',

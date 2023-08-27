@@ -1,5 +1,5 @@
 import { Header } from 'components/Header/Header';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import avatar from '../../images/neo.jpg';

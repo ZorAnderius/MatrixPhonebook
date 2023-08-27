@@ -18,7 +18,7 @@ export const LoginForm = ({ login }) => {
         }}
       >
         {formik => {
-          const { values, errors, touched, isValid, dirty } = formik;
+          const { errors, touched, isValid, dirty } = formik;
           return (
             <Form className={loginCSS.login_form}>
               <div className={loginCSS.form_item}>

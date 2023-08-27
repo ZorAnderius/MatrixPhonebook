@@ -4,7 +4,6 @@ import { Home } from '../pages/Home/home';
 import { Contacts } from '../pages/Contacts/contacts';
 import { Login } from '../pages/Login/login';
 import { SignUp } from '../pages/SignUp/signUp';
-import { UserProfile } from '../pages/UserProfile/userProfile';
 import { Error } from '../pages/ErrorPage/error';
 import { PrivateGuard } from './Guards/PrivateGuards';
 import { PublicGuards } from './Guards/PublicGuards';

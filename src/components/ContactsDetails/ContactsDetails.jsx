@@ -14,7 +14,7 @@ import {
 } from '../../redux/contacts/thunks';
 import { Loader } from '../Loader/Loader';
 import { ScrollUp } from '../ScrollUp/ScrollUp';
-import { filterContacts, selectContacts } from 'redux/contacts/selectors';
+import { filterContacts } from 'redux/contacts/selectors';
 import { errorSelect, loadingSelect } from 'redux/errorLoader/selector';
 import { Navigate } from 'react-router-dom';
 
