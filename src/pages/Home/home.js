@@ -42,7 +42,7 @@ const Home = () => {
             <div className={homeCSS.contacts_link_wrap}>
               <Link
                 className={homeCSS.contacts_link}
-                to="/contacts"
+                to="contacts"
                 state={{ from: location }}
               >
                 <PrivateGuard redirectTo="/login">
@@ -54,14 +54,14 @@ const Home = () => {
             <>
               <Link
                 className={homeCSS.linkReg}
-                to="/register"
+                to="register"
                 state={{ from: location }}
               >
                 <div className={homeCSS.text}>SIGN UP</div>
               </Link>
               <Link
                 className={homeCSS.linkLog}
-                to="/login"
+                to="login"
                 state={{ from: location }}
               >
                 <div className={homeCSS.text}>LOG IN</div>
