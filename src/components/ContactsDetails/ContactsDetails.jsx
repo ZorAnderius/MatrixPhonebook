@@ -30,7 +30,6 @@ export const ContactsDetsils = () => {
   }, [dispatch]);
 
   const addContact = body => {
-    console.log('object', filterList);
     const isInclude = filterList.find(
       ({ name }) => name.toLowerCase() === body.name.toLowerCase()
     );
@@ -43,7 +42,6 @@ export const ContactsDetsils = () => {
       dispatch(addContactThunk(body));
     }
   };
-  console.log('error', error);
 
   return error ? (
     <Navigate to={'error'} />

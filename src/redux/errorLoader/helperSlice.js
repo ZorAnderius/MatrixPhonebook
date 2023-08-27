@@ -10,7 +10,6 @@ const handleFulfilled = state => {
 };
 
 const handleRejected = (state, action) => {
-  console.log('action', action);
   state.isLoading = false;
   if (action.error) {
     state.error = action.error.message;

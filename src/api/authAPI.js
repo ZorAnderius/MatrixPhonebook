@@ -7,7 +7,6 @@ const setTokenToStorage = token => {
 };
 
 export const signUp = async body => {
-  console.log('body', body);
   const { data } = await instanceAuth.post('/users/signup', body);
   setToken(data.token);
   setTokenToStorage(data.token);
