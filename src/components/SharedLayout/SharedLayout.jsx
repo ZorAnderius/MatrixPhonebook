@@ -1,17 +1,24 @@
 import { Header } from 'components/Header/Header';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import avatar from '../../images/neo.jpg';
+import { RiLogoutBoxLine, RiLoginBoxLine } from 'react-icons/ri';
 
 import clsx from 'clsx';
+
+import avatar from '../../images/neo.jpg';
 
 import layoutCSS from './SharedLayout.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectisAuth } from 'redux/auth/selectors';
 import { logOutThunk } from 'redux/auth/thunks';
+import { Modal } from 'components/Modal/Modal';
+import { User } from 'components/UserProfile/User';
+import { AiOutlineClose } from 'react-icons/ai';
 
 export const SharedLayout = () => {
+  const [showModal, setShowModal] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -23,6 +30,10 @@ export const SharedLayout = () => {
     localStorage.removeItem('token');
   };
 
+  const toggleModal = () => {
+    setShowModal(prevState => !prevState);
+  };
+
   return (
     <div>
       {!isHome && (
@@ -32,7 +43,7 @@ export const SharedLayout = () => {
               <Link
                 className={clsx(
                   layoutCSS.nav_link,
-                  location?.pathname === '/' && layoutCSS.active
+                  location.pathname === '/' && layoutCSS.active
                 )}
                 to="/"
               >
@@ -42,7 +53,7 @@ export const SharedLayout = () => {
                 <Link
                   className={clsx(
                     layoutCSS.nav_link,
-                    location?.pathname === '/contacts' && layoutCSS.active
+                    location.pathname === '/contacts' && layoutCSS.active
                   )}
                   to="/contacts"
                   state={{ from: location }}
@@ -54,29 +65,33 @@ export const SharedLayout = () => {
 
             <div className={layoutCSS.auth_container}>
               {isAuth && (
-                <Link
-                  className={clsx(
-                    layoutCSS.nav_link,
-                    location?.pathname === '/current' && layoutCSS.active
-                  )}
-                  to="/current"
-                  state={{ from: location }}
+                <button
+                  type="button"
+                  className={layoutCSS.user_btn}
+                  onClick={toggleModal}
                 >
-                  <div className={layoutCSS.avatar_tumb}>
-                    <img
-                      className={layoutCSS.avatar}
-                      src={avatar}
-                      alt="userProf"
-                    />
+                  <div
+                    className={clsx(
+                      layoutCSS.nav_link,
+                      location.pathname === '/register' && layoutCSS.active
+                    )}
+                  >
+                    <div className={layoutCSS.avatar_tumb}>
+                      <img
+                        className={layoutCSS.avatar}
+                        src={avatar}
+                        alt="userProfile"
+                      />
+                    </div>
                   </div>
-                </Link>
+                </button>
               )}
 
               {!isAuth && (
                 <Link
                   className={clsx(
                     layoutCSS.nav_link,
-                    location?.pathname === '/register' && layoutCSS.active
+                    location.pathname === '/register' && layoutCSS.active
                   )}
                   to="/register"
                   state={{ from: location }}
@@ -89,11 +104,11 @@ export const SharedLayout = () => {
                 type="button"
                 className={clsx(
                   layoutCSS.nav_btn_link,
-                  location?.pathname === '/login' && layoutCSS.active
+                  location.pathname === '/login' && layoutCSS.active
                 )}
                 onClick={() => (isAuth ? handleLogOut() : navigate('/login'))}
               >
-                {isAuth ? 'logout' : 'Login'}
+                {isAuth ? <RiLogoutBoxLine /> : <RiLoginBoxLine />}
               </button>
             </div>
           </nav>
@@ -102,6 +117,18 @@ export const SharedLayout = () => {
       <Suspense>
         <Outlet />
       </Suspense>
+      {showModal && (
+        <Modal toggleModal={toggleModal}>
+          <User />
+          <button
+            className={layoutCSS.close_btn}
+            type="button"
+            onClick={toggleModal}
+          >
+            <AiOutlineClose className={layoutCSS.close_icon} />
+          </button>
+        </Modal>
+      )}
     </div>
   );
 };

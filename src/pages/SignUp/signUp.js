@@ -4,13 +4,13 @@ import signPageCSS from './SignUp.module.css';
 import { useDispatch } from 'react-redux';
 import { signUpThunk } from 'redux/auth/thunks';
 
-export const SignUp = () => {
+const SignUp = () => {
   const dispatch = useDispatch();
 
   const signUp = value => {
     dispatch(signUpThunk(value));
   };
-  
+
   return (
     <div className={signPageCSS.signUp_container}>
       <div className={signPageCSS.signUp_tumb}>
@@ -24,3 +24,5 @@ export const SignUp = () => {
     </div>
   );
 };
+
+export default SignUp;

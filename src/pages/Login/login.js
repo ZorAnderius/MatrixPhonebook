@@ -2,7 +2,7 @@ import { LoginForm } from 'components/LoginForm/LoginForm';
 import { useDispatch } from 'react-redux';
 import { loginThunk } from 'redux/auth/thunks';
 
-export const Login = () => {
+const Login = () => {
   const dispatch = useDispatch();
 
   const login = values => {
@@ -11,3 +11,5 @@ export const Login = () => {
 
   return <LoginForm login={login} />;
 };
+
+export default Login;

@@ -1,13 +1,14 @@
 import { initialAuthState } from './initialAuthState';
 
 export const handlerAuthFulfilled = (state, { payload }) => {
-  console.log('payload', payload);
   state.token = payload.token;
   state.profile = payload.user;
   state.isLoggedIn = true;
 };
 
 export const handlerRefreshFulfilled = (state, { payload }) => {
+  const token = localStorage.getItem('token');
+  token && (state.token = token);
   state.profile = payload;
   state.isRefresh = false;
   state.isLoggedIn = true;

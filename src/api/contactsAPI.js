@@ -6,11 +6,13 @@ export const fetchContacts = async () => {
 };
 
 export const addContact = async body => {
-  const { data } = await instanceAuth.post('/contactss', body);
+  const { data } = await instanceAuth.post('/contacts', body);
+
   return data;
 };
 
 export const deleteContact = async id => {
   const { data } = await instanceAuth.delete(`/contacts/${id}`);
+
   return data;
 };

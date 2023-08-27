@@ -1,5 +1,7 @@
 import { ContactsDetsils } from 'components/ContactsDetails/ContactsDetails';
 
-export const Contacts = () => {
+const Contacts = () => {
   return <ContactsDetsils />;
 };
+
+export default Contacts;
